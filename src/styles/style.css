@@ -1,17 +1,18 @@
-#calculadora {
+div {
   width: 200px;
   border: 1px solid #000;
   padding: 10px;
 }
-#calculadora #result {
+div input {
   height: 10%;
+  width: 190px;
   border: 1px solid #000;
   text-align: center;
   padding-top: 0.3em;
   font-size: 20px;
   margin-bottom: 0.5em;
 }
-#calculadora #buttons .btn {
+div button {
   width: 40px;
   height: 40px;
   margin: 0.3em;

@@ -4,6 +4,7 @@
         reset: true,
         valor1: 0,
         valor2: 0,
+        operador: undefined,
         buttonsArray: ['CE', '<-', '%', '+',
             '7', '8', '9', '-',
             '4', '5', '6', 'x',
@@ -19,7 +20,7 @@
         },
         eventoClick: (valor) => {
             //Si el valor es un numerico
-            if (/[1-9]/.test(valor)) {
+            if (/[0-9]/.test(valor)) {
                 return () => {
                     if (calculadora.reset) {
                         calculadora.display.value = valor;
@@ -37,6 +38,73 @@
                         if (!calculadora.display.value.includes(",")){
                             calculadora.display.value += valor;
                             calculadora.reset = false;
+                        }
+                    }
+                case 'CE':
+                    return () => {
+                        calculadora.display.value = 0;
+                        calculadora.reset = true;
+                    }
+                case '+':
+                    return () => {
+                        calculadora.valor1 = Number(calculadora.display.value);
+                        calculadora.display.value = 0;
+                        calculadora.reset = true;
+                        calculadora.operador = '+';
+                    }
+                case '-':
+                    return () => {
+                        calculadora.valor1 = Number(calculadora.display.value);
+                        calculadora.display.value = 0;
+                        calculadora.reset = true;
+                        calculadora.operador = '-';
+                    }
+                case 'x':
+                    return () => {
+                        calculadora.valor1 = Number(calculadora.display.value);
+                        calculadora.display.value = 0;
+                        calculadora.reset = true;
+                        calculadora.operador = '*';
+                    }
+                case '±':
+                    return () => {
+                        calculadora.display.value = calculadora.display.value * -1;
+                    }
+                case '%':
+                    return () => {
+                        calculadora.display.value = calculadora.display.value / 100;
+                    }
+                case '÷':
+                    return () => {
+                        calculadora.valor1 = Number(calculadora.display.value);
+                        calculadora.display.value = 0;
+                        calculadora.reset = true;
+                        calculadora.operador = '/';
+                    }
+                case '=':
+                    return () => {
+                        calculadora.valor2 = Number(calculadora.display.value);
+                        switch (calculadora.operador) {
+                            case '+':
+                                calculadora.display.value = calculadora.valor1 + calculadora.valor2;
+                                calculadora.operador = undefined;
+                                calculadora.reset = true;
+                                break;
+                            case '-':
+                                calculadora.display.value = calculadora.valor1 - calculadora.valor2;
+                                calculadora.operador = undefined;
+                                calculadora.reset = true;
+                                break;
+                            case '*':
+                                calculadora.display.value = calculadora.valor1 * calculadora.valor2;
+                                calculadora.operador = undefined;
+                                calculadora.reset = true;
+                                break;
+                            case '/':
+                                calculadora.display.value = calculadora.valor1 / calculadora.valor2;
+                                calculadora.operador = undefined;
+                                
+                                calculadora.reset = true;
                         }
                     }
             }
